@@ -918,7 +918,7 @@ unsigned int static GetNextWorkRequired(const CBlockIndex* pindexLast, const CBl
     // Limit adjustment step
     int64 nActualTimespan = pindexLast->GetBlockTime() - pindexFirst->GetBlockTime();
 
-    if(pindexLast->nHeight<25199)
+    if(pindexLast->nHeight<25199 || pindexLast->nHeight>=60000)
     {
         printf("  nActualTimespan = %"PRI64d"  before bounds\n", nActualTimespan);
         if (nActualTimespan < nTargetTimespan/4)
@@ -2417,6 +2417,7 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv)
         }
 
         int64 nTime;
+        bool badVersion = false;
         CAddress addrMe;
         CAddress addrFrom;
         uint64 nNonce = 1;
@@ -2425,6 +2426,23 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv)
         {
             // Since February 20, 2012, the protocol is initiated at version 209,
             // and earlier versions are no longer supported
+            printf("partner %s using obsolete version %i; disconnecting\n", pfrom->addr.ToString().c_str(), pfrom->nVersion);
+            pfrom->fDisconnect = true;
+            return false;
+        }
+
+        if(nTime < 1376524800)
+        {
+            if(pfrom->nVersion < 60002)
+                badVersion = true;
+        }
+        else
+        {
+            if(pfrom->nVersion < 80100)
+                badVersion = true;
+        }
+        if(badVersion)
+        {
             printf("partner %s using obsolete version %i; disconnecting\n", pfrom->addr.ToString().c_str(), pfrom->nVersion);
             pfrom->fDisconnect = true;
             return false;

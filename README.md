@@ -1,14 +1,14 @@
 Gamecoin - a lite version of Litecoin using scrypt as a proof of work scheme.
  - 2.5 minute block targets
- - subsidy halves in 3360k blocks (~4 years)
+ - subsidy halves in 840k blocks (~4 years)
  - ~3360 million total coins
 
 The rest is the same as bitcoin.
  - 1000 coins per block
- - 2016 blocks to retarget difficulty
+ - 48 blocks to retarget difficulty
  
 Download
-See ~~http://www.gamecoin.cc~~ Stay tuned for new download location as it becomes available
+See http://bit.ly/1ccGDK7 Stay tuned for new download location as it becomes available
 
 Development process
 ===================
@@ -38,5 +38,5 @@ Issues with no commits will be given a similar warning, and closed after
 15 days from their last activity. Issues closed in this manner will be 
 labeled 'stale'. 
 
-Check out ~~http://gamecoin.cc~~ for more info about the development.
+Check out http://bit.ly/1ccGDK7 for more info about the development.
 This is an unofficial fork.
